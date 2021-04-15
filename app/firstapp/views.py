@@ -130,7 +130,7 @@ def dogsGet(request):
 def dogsGetId(request, dogid):
 
     if request.method == 'GET':
-       
+
         try:
             one_entry = Dogs.objects.get(id=dogid)
         except:
@@ -156,6 +156,71 @@ def dogsGetId(request, dogid):
         responseData['mesage'] = 'Wrong Method'
         return JsonResponse(responseData, status=400)
 
+def dogsUpdate(request,dogid):
+
+    if request.method == 'POST':
+        try:
+            one_entry = Dogs.objects.get(id=dogid)
+        except:
+            responseData = {}
+            responseData['success'] = 'false'
+            responseData['message'] = 'The dog_id its not valid'
+            return JsonResponse(responseData, status=400)
+        try:
+            json_object = json.loads(request.body)
+            contador = 0
+            #AQUI VA EL CODIGO DEL UPDATE
+            try:
+                value = json_object["dog_name"]
+                Dogs.objects.filter(id=dogid).update(name=json_object["dog_name"])
+                contador = contador + 1  
+            except KeyError:
+                responseData = {}
+
+            try:
+                value = json_object["dog_size"]
+                Dogs.objects.filter(id=dogid).update(size=json_object["dog_size"])
+                contador = contador + 1  
+            except KeyError:
+                responseData = {}
+                
+            try:
+                value = json_object["dog_color"]
+                Dogs.objects.filter(id=dogid).update(color=json_object["dog_color"])
+                contador = contador + 1  
+            except KeyError:
+                responseData = {}
+
+            try:
+                value = json_object["dog_type"]
+                Dogs.objects.filter(id=dogid).update(type_id=json_object["dog_type"])
+                contador = contador + 1  
+            except KeyError:
+                responseData = {}
+
+            if contador == 0:
+                responseData = {}
+                responseData['success'] = 'false'
+                responseData['message'] = 'Nada por actualizar'
+                return JsonResponse(responseData, status=400)
+            else:
+                responseData = {}
+                responseData['success'] = 'true'
+                responseData['message'] = 'Datos actualizados'
+                return JsonResponse(responseData, status=200)
+                
+        except ValueError as e:
+            responseData = {}
+            responseData['success'] = 'false'
+            responseData['data'] = 'Invalid Json'
+            return JsonResponse(responseData, status=400)
+      
+    else:
+
+        responseData = {}
+        responseData['success'] = 'false'
+        responseData['mesage'] = 'Wrong Method'
+        return JsonResponse(responseData, status=400)
 
 def types(request):
 

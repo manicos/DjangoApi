@@ -9,5 +9,6 @@ urlpatterns = [
     path('dog/delete',views.dogsDelete,name='dogsdelete'),
     path('dog/get',views.dogsGet,name='dogsGet'),
     path('dog/get/<int:dogid>',views.dogsGetId,name='dogsGetId'),
+    path('dog/update/<int:dogid>',views.dogsUpdate,name='dogsUpdate'),
     path('types',views.types,name='types'),
 ]
