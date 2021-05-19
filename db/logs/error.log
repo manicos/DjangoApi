@@ -1,0 +1,18 @@
+2021-05-05 20:31:33 139825393522368 [Note] InnoDB: Mutexes and rw_locks use GCC atomic builtins
+2021-05-05 20:31:33 139825393522368 [Note] InnoDB: Uses event mutexes
+2021-05-05 20:31:33 139825393522368 [Note] InnoDB: Compressed tables use zlib 1.2.11
+2021-05-05 20:31:33 139825393522368 [Note] InnoDB: Using Linux native AIO
+2021-05-05 20:31:33 139825393522368 [Note] InnoDB: Number of pools: 1
+2021-05-05 20:31:33 139825393522368 [Note] InnoDB: Using SSE2 crc32 instructions
+2021-05-05 20:31:33 139825393522368 [Note] InnoDB: Initializing buffer pool, total size = 256M, instances = 1, chunk size = 128M
+2021-05-05 20:31:33 139825393522368 [Note] InnoDB: Completed initialization of buffer pool
+2021-05-05 20:31:33 139824670791424 [Note] InnoDB: If the mysqld execution user is authorized, page cleaner thread priority can be changed. See the man page of setpriority().
+2021-05-05 20:31:33 139825393522368 [ERROR] InnoDB: Invalid flags 0x15 in ./ibdata1
+2021-05-05 20:31:33 139825393522368 [ERROR] InnoDB: Plugin initialization aborted with error Data structure corruption
+2021-05-05 20:31:33 139825393522368 [Note] InnoDB: Starting shutdown...
+2021-05-05 20:31:33 139825393522368 [ERROR] Plugin 'InnoDB' init function returned error.
+2021-05-05 20:31:33 139825393522368 [ERROR] Plugin 'InnoDB' registration as a STORAGE ENGINE failed.
+2021-05-05 20:31:33 139825393522368 [Note] Plugin 'FEEDBACK' is disabled.
+2021-05-05 20:31:33 139825393522368 [ERROR] Unknown/unsupported storage engine: InnoDB
+2021-05-05 20:31:33 139825393522368 [ERROR] Aborting
+

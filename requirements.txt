@@ -4,3 +4,4 @@ mysqlclient==1.4.6
 mysql-connector-python==8.0.19
 markdown
 django-filter
+requests

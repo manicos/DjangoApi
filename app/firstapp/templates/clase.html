@@ -1,11 +1,30 @@
 {% include "header.html" %}
-Hola {{ title }}<br>
-<strong>Clase</strong><br><br>
 
-<ul>
-	
-</ul>
-<br><br>
-<a href="javascript:hola()">Click aquí</a>
+<div style="width:100%; height:auto; padding:20px">
+
+<h1>Numero de resultados: {{ cuantos }}</h1>
+
+<h2>Lista de resultados</h2>
+
+<table cellpadding=0 cellspacing=4 border:1px  style="width:90%; border:1px solid #666">
+  <tr>
+    <td><strong>Imagen</strong></td>
+    <td><strong>Título</strong></td>
+    <td><strong>Ficha técnica</strong></td>
+    <td><strong>Fecha de lanzamiento</strong></td>
+    <td><strong>Opciones</strong></td>
+  </tr>
+  {% for obj in movies.results %}
+    <tr>
+      <td><img src="https://image.tmdb.org/t/p/w500{{ obj.poster_path }}" height="200"></td>
+      <td>{{ obj.title }}</td>
+      <td>{{ obj.overview }}</td>
+      <td>{{ obj.release_date }}</td>
+      <td><a href="#">Editar</a> <a href="#">Eliminar</a></td>
+    </tr>
+  {% endfor %}
+</table>
+
+</div>
 
 {% include "footer.html" %}

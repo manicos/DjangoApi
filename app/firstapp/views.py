@@ -5,6 +5,7 @@
 from django.shortcuts import render , HttpResponse
 from django.http import JsonResponse
 import json
+import requests
 #IMPORT DJANGO PASSWORD HASH GENERATOR AND COMPARE
 from django.contrib.auth.hashers import make_password, check_password
 from .models import Dogs,Types
@@ -15,19 +16,53 @@ from .models import Dogs,Types
 #    return render(request,'clase.html')
 
 def vista(request):
-    
-    #https://docs.djangoproject.com/en/3.0/ref/templates/language/#templates
-    return render(request, 'clase.html', {'title': "Bumblebee" , "otra": "asdassdsdsdd" })
+
+    query = "batman"
+    apiKey = "c809e516f37fa7407b060cc0dd57bce4"
+
+    #API URL
+    url = 'https://api.themoviedb.org/3/search/movie?query=' + query + '&api_key=' + apiKey;
+
+    response = requests.get(url)
+    result = response.json()
+    cuantos = len(result['results']);
+
+    #post_data = {'remote_api_file_field': self.file}
+    #requests.post(REMOTE_API_URL, data=post_data)
+
+    #url = 'https://www.googleapis.com/urlshortener/v1/url'
+    #data = {'longUrl': 'http://www.google.com/'}
+    #headers = {'Content-Type': 'application/json'}
+
+    #response = requests.post(url, data=json.dumps(data), headers=headers)
+
+    return render(request, 'clase.html', {'cuantos': cuantos , "movies": result })
 
 
 def dogs(request):
-    
+
     if request.method == 'GET':
 
+        apikey = request.headers.get('api_key')
+        apikey = "33390d09esdioewu0qe0uqu0"
+        if apikey is not None:
+
+            if apikey != "33390d09esdioewu0qe0uqu0":
+                responseData = {}
+                responseData['success'] = 'false'
+                responseData['message'] = 'API KEY NOT VALID'
+                return JsonResponse(responseData, status=400)
+
+            responseData = {}
+            responseData['success'] = 'true'
+            responseData['key'] = apikey
+            responseData['data'] = list(Dogs.objects.all().values())
+            return JsonResponse(responseData, status=200)
+
         responseData = {}
-        responseData['success'] = 'true'
-        responseData['data'] = list(Dogs.objects.all().values())
-        return JsonResponse(responseData, status=200)
+        responseData['success'] = 'false'
+        responseData['message'] = 'No api Key'
+        return JsonResponse(responseData, status=400)
 
     else:
 
@@ -138,7 +173,7 @@ def dogsGetId(request, dogid):
             responseData['success'] = 'false'
             responseData['message'] = 'The dog_id its not valid'
             return JsonResponse(responseData, status=400)
-        
+
         responseData = {}
         responseData['success'] = 'true'
         responseData['data'] = {}
@@ -148,7 +183,7 @@ def dogsGetId(request, dogid):
         responseData['data']['type_id'] = one_entry.type_id
 
         return JsonResponse(responseData, status=200)
-      
+
     else:
 
         responseData = {}
@@ -173,28 +208,28 @@ def dogsUpdate(request,dogid):
             try:
                 value = json_object["dog_name"]
                 Dogs.objects.filter(id=dogid).update(name=json_object["dog_name"])
-                contador = contador + 1  
+                contador = contador + 1
             except KeyError:
                 responseData = {}
 
             try:
                 value = json_object["dog_size"]
                 Dogs.objects.filter(id=dogid).update(size=json_object["dog_size"])
-                contador = contador + 1  
+                contador = contador + 1
             except KeyError:
                 responseData = {}
-                
+
             try:
                 value = json_object["dog_color"]
                 Dogs.objects.filter(id=dogid).update(color=json_object["dog_color"])
-                contador = contador + 1  
+                contador = contador + 1
             except KeyError:
                 responseData = {}
 
             try:
                 value = json_object["dog_type"]
                 Dogs.objects.filter(id=dogid).update(type_id=json_object["dog_type"])
-                contador = contador + 1  
+                contador = contador + 1
             except KeyError:
                 responseData = {}
 
@@ -208,13 +243,13 @@ def dogsUpdate(request,dogid):
                 responseData['success'] = 'true'
                 responseData['message'] = 'Datos actualizados'
                 return JsonResponse(responseData, status=200)
-                
+
         except ValueError as e:
             responseData = {}
             responseData['success'] = 'false'
             responseData['data'] = 'Invalid Json'
             return JsonResponse(responseData, status=400)
-      
+
     else:
 
         responseData = {}

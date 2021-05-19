@@ -5,8 +5,8 @@ networks:
 
 services:
 
-  app:
-    container_name: clasewebDjango
+  appdjango:
+    container_name: clasewebdjango
     build:
       context: .
     ports:

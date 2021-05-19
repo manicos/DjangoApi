@@ -82,7 +82,7 @@ DATABASES = {
         'USER': 'mydbuser',
         'PASSWORD': 'mydbpassword',
         'HOST': 'host.docker.internal',
-        'PORT': 3306,
+        'PORT': 3308,
         'OPTIONS': {
           'autocommit': True,
         },
